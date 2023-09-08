@@ -14,8 +14,6 @@
 #define SUSPEND    0
 #define RUNING     1
 #define null       0
-#define Test       0
-
 
 void create_task (uint8 Copy_periodicity , uint8 Copy_prioirty , void (*Copy_PFUNC)(void) , uint8 Copy_FD , uint8 Copy_State );
 void Suspend_Task(uint8 Copy_prioirty);
