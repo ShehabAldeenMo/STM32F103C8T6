@@ -13,11 +13,6 @@
 #include "Det.h"
 #include "Bit_Math.h"
 
-#define Test         0
-#define Test_V2      1
-#define Test_V3      1
-
-
 typedef enum {
 	PINAx,
 	PINBx,

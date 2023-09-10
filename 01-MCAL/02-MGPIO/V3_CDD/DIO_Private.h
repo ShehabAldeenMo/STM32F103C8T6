@@ -95,21 +95,5 @@ typedef struct {
 #define DIO_OUT                0x02
 
 
-/**
- * Cover_req_[SWS_Dio_00133]
- * Cover_req_[SWS_Dio_00028]
- * Cover_req_[SWS_Dio_00029]
- * Cover_req_[SWS_Dio_00079]
- * Cover_req_[SWS_Dio_00136]
- * Cover_req_[SWS_Dio_00139]
- * Cover_req_[SWS_Dio_00190]
- */
-
-/*    Supporting functions     */
-Dio_LevelType     Dio_ReadChannel (Dio_ChannelType ChannelId)                         ;
-void              Dio_WriteChannel(Dio_ChannelType ChannelId,Dio_LevelType Level)     ;
-Dio_PortLevelType Dio_ReadPort(Dio_PortType PortId)                                   ;
-void              Dio_WritePort(Dio_PortType PortId,Dio_PortLevelType Level)          ;
-Dio_LevelType     Dio_FlipChannel(Dio_ChannelType ChannelId)                          ;
 
 #endif /* DIO_PRIVATE_H_ */

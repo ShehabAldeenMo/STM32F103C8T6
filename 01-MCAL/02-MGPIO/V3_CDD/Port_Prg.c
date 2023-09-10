@@ -32,6 +32,9 @@ extern Port_Cfg Port_ArrOfPorts[NUM_OF_PORT] ;
 static Port_PinModeType  Port_ArryOfPins      [AMOUNT_PINS] ;
 static Port_PinModeType  Port_ArryOfActivition[AMOUNT_PINS] ;
 
+/* to Reset register */
+static uint8 FlagOfReset = 0 ;
+
 /*
   Input  : Port_PinType , Port_PinDirectionType
   output : void
@@ -83,7 +86,7 @@ void    Port_GetVersionInfo  (Std_VersionInfoType* versioninfo){
 
 
 void Port_VidInit (void){
-
+	FlagOfReset++;
 	for (uint8 i = 0 ; i < NUM_OF_PORT ; i++){
 
 		switch (Port_ArrOfPorts[i].Port_Num){
@@ -182,6 +185,17 @@ void              Port_VidRunnable (void) {
 	11: Output mode, max speed 50 MHz
 =============================================== */
 void    Port_SetPinMode      (Port_PinType Pin,Port_PinModeType Mode){
+
+	if (FlagOfReset == 0){
+		GPIOA->CRL &= ~(0xFFFFFFFF);
+		GPIOB->CRL &= ~(0xFFFFFFFF);
+		GPIOC->CRL &= ~(0xFFFFFFFF);
+		GPIOA->CRH &= ~(0xFFFFFFFF);
+		GPIOB->CRH &= ~(0xFFFFFFFF);
+		GPIOC->CRH &= ~(0xFFFFFFFF);
+		FlagOfReset++;
+	}
+
 	if ( Pin >= Port_A0  && Pin <= Port_A15 ){
 		if (Pin <= Port_A7){
 			GPIOA->CRL |= ( Mode <<(Pin  * BASE_CRL_CRH) ) ;
@@ -191,13 +205,17 @@ void    Port_SetPinMode      (Port_PinType Pin,Port_PinModeType Mode){
 		}
 	}
 	else if (Pin >= Port_B0  && Pin <= Port_B15){
-		/*  to clear the bit that we used in define port */
-		CLR_BIT(Pin,4);
 
-		if (Pin  <= Port_A7 ){
+		if (Pin  <= Port_B7 ){
+			/*  to clear the bit that we used in define port */
+			CLR_BIT(Pin,4);
+
 			GPIOB->CRL |= ( Mode << (Pin *BASE_CRL_CRH) ) ;
 		}
 		else {
+			/*  to clear the bit that we used in define port */
+			CLR_BIT(Pin,4);
+
 			GPIOB->CRH |= ( Mode <<( (Pin -8)*BASE_CRL_CRH) ) ;
 		}
 	}

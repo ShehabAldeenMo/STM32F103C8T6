@@ -117,7 +117,7 @@ void   Dio_VidRunnable (void){
 	case Initialized :
 		/* no action */
 		break ;
-	case Idle          :
+	case Idle  :
 		Global_State = Busy ;
 
 		uint8 i = 0 ;
@@ -138,7 +138,7 @@ void   Dio_VidRunnable (void){
 
 		Global_State = Idle ;
 		break ;
-	case Busy          :
+	case Busy  :
 		/* No action */
 		break ;
 	}
